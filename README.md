@@ -11,6 +11,6 @@
 
 <div align="center">
 <figure>
-  <img src="./demo/demo.gif" alt="demo" name=>
+  <img src="./demo/demo-resize.gif" alt="demo" name=>
 </figure>
 </div>

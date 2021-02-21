@@ -1,0 +1,25 @@
+{
+  "name": "mBTC-conversions",
+  "version": "1.0.0",
+  "description": "A cute, small, mini desktop app that quickly converts mBTC to fiat money using real-time prices",
+  "main": "./src/index.js",
+  "dependencies": {
+    "electron": "^11.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "./node_modules/.bin/electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyanDBurke/mBTC-conversions.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyanDBurke/mBTC-conversions/issues"
+  },
+  "homepage": "https://github.com/RyanDBurke/mBTC-conversions#readme"
+}

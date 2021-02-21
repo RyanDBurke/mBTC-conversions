@@ -5,7 +5,7 @@
 <br />
 
 # Download
-* [Windows x64](#win)
+* [Windows x64](https://github.com/RyanDBurke/mBTC-conversions/releases/download/v1.0/mBTC.Installer.zip)
 * [MacOS](#mac)
 
 

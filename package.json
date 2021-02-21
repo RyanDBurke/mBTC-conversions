@@ -1,15 +1,24 @@
 {
-  "name": "mBTC-conversions",
+  "name": "mbtc-conversions",
+  "productName": "mBTC Conversions",
   "version": "1.0.0",
   "description": "A cute, small, mini desktop app that quickly converts mBTC to fiat money using real-time prices",
   "main": "./src/index.js",
   "dependencies": {
     "electron": "^11.3.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "electron-packager": "^15.2.0",
+    "electron-winstaller": "^5.0.0"
+  },
   "scripts": {
     "start": "./node_modules/.bin/electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package-mac": "electron-packager . --overwrite --asar=true --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.mBTC=CE --version-string.mBTC=CE --version-string.mBTC=\"mbtc-conversions\"",
+    "package-linux": "electron-packager . --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/1024x1024.png --prune=true --out=release-builds",
+    "create-installer-mac": "electron-installer-dmg ./release-builds/mBTC Conversions-darwin-x64/mBTC Conversions.app mBTC-Conversions --out=release-builds --overwrite --icon=assets/icons/mac/icon.icns",
+    "create-installer-win": "node installers/windows/createinstaller.js"
   },
   "repository": {
     "type": "git",

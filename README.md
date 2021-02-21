@@ -8,7 +8,9 @@
 * [Windows x64](#win)
 * [MacOS](#mac)
 
-# Demo
+
+<div align="center">
 <figure>
   <img src="./demo/demo.gif" alt="demo" name=>
 </figure>
+</div>

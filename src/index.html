@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Tiny mBTC Converter</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <!-- <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" /> -->
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="./index.css">
 </head>
 
@@ -16,30 +16,148 @@
     <div class="container mt-5">
         <div class="row text-center">
             <div class="col-6 text-white"><input id="bitcoin-amt" oninput="convert();" type="text"
-                    class="form-control bg-dark text-white text-center" maxlength="7"></div>
+                    class="form-control bg-dark text-white text-center" maxlength="4"></div>
             <div id="usd-amt" class="col-6 text-white mt-2">
                 <p></p>
             </div>
         </div>
         <div class="row text-center">
-            <div class="col-6 text-white">m฿</div>
-            <div class="col-6 text-white">USD</div>
+            <div class="col-6 text-white">
+                <div id="btcControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <div id="mBTC" class="carousel-item active">
+                            mBTC
+                        </div>
+                        <div id="BTC" class="carousel-item">
+                            BTC
+                        </div>
+                    </div>
+                    <a onclick="leftCarouselPrev();" class="carousel-control-prev" href="#btcControls" role="button"
+                        data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a onclick="leftCarouselNext();" class="carousel-control-next" href="#btcControls" role="button"
+                        data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+            <div class="col-6 text-white">
+                <div id="fiatControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner" role="listbox">
+                        <div id="USD" class="carousel-item active">
+                            USD
+                        </div>
+                        <div id="EUR" class="carousel-item">
+                            EUR
+                        </div>
+                        <div id="GBP" class="carousel-item">
+                            GBP
+                        </div>
+                        <div id="JPY" class="carousel-item">
+                            JPY
+                        </div>
+                        <div id="CAD" class="carousel-item">
+                            CAD
+                        </div>
+                        <div id="AUD" class="carousel-item">
+                            AUD
+                        </div>
+                    </div>
+                    <a onclick="rightCarouselPrev();" class="carousel-control-prev" href="#fiatControls" role="button"
+                        data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a onclick="rightCarouselNext();" class="carousel-control-next" href="#fiatControls" role="button"
+                        data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
     <script type="text/javascript">
+
+        var carouselIndex = 0;
+        var carouselIds = [document.getElementById("mBTC"), document.getElementById("BTC")]
+        function leftCarouselNext() {
+            carouselIndex = (carouselIndex + 1 == carouselIds.length) ? 0 : carouselIndex + 1
+            carouselIds[carouselIndex].className = "carousel-item active"
+
+            for (var i = 0; i < carouselIds.length; i++) {
+                if (i != carouselIndex) {
+                    carouselIds[i].className = "carousel-item"
+                }
+            }
+
+            convert();
+        }
+
+        function leftCarouselPrev() {
+            carouselIndex = (carouselIndex - 1 == -1) ? carouselIds.length - 1 : carouselIndex - 1
+            carouselIds[carouselIndex].className = "carousel-item active"
+
+            for (var i = 0; i < carouselIds.length; i++) {
+                if (i != carouselIndex) {
+                    carouselIds[i].className = "carousel-item"
+                }
+            }
+
+            convert();
+        }
+
+        var carouselFiatIndex = 0;
+        var carouselFiatIds = [document.getElementById("USD"), document.getElementById("EUR"),
+        document.getElementById("GBP"), document.getElementById("JPY"),
+        document.getElementById("CAD"), document.getElementById("AUD")]
+        function rightCarouselNext() {
+            carouselFiatIndex = (carouselFiatIndex + 1 == carouselFiatIds.length) ? 0 : carouselFiatIndex + 1
+            carouselFiatIds[carouselFiatIndex].className = "carousel-item active"
+
+            for (var i = 0; i < carouselFiatIds.length; i++) {
+                if (i != carouselFiatIndex) {
+                    carouselFiatIds[i].className = "carousel-item"
+                }
+            }
+
+            convert();
+        }
+
+        function rightCarouselPrev() {
+            carouselFiatIndex = (carouselFiatIndex - 1 == -1) ? carouselFiatIds.length - 1 : carouselFiatIndex - 1
+            carouselFiatIds[carouselFiatIndex].className = "carousel-item active"
+
+            for (var i = 0; i < carouselFiatIds.length; i++) {
+                if (i != carouselFiatIndex) {
+                    carouselFiatIds[i].className = "carousel-item"
+                }
+            }
+
+            convert();
+        }
+
+
+        var noWay = ["lmao, no way", "sure..", "certainly not", "ありえない", "Eh?", "Bloody hell"]
+        var fiat = ["USD", "EUR", "GBP", "JPY", "CAD", "AUD"]
+        var fiatSymbols = ["$", "€", "£", "¥", "$", "$"]
+        var bitcoinUnit = ["mBTC", "BTC"]
         function convert() {
 
             //// get mB and USD id
@@ -51,18 +169,38 @@
 
             //// make sure its a valid amount
             if (regex.test(mbValueStr)) {
-                const bitcoin = getBitcoinPrice();
+                const bitcoin = getBitcoinPrice(fiat[carouselFiatIndex]);
                 var mB = Number(mbValueStr);
                 var singleBitcoin = mB / 1000;
-                usdID.innerHTML = '$ ' + (singleBitcoin * bitcoin).toFixed(2);
+                var unit = (bitcoinUnit[carouselIndex] == "mBTC") ? singleBitcoin * bitcoin : bitcoin * mB
+
+                if (mB > 5000) {
+                    usdID.innerHTML = noWay[carouselFiatIndex]
+                } else {
+                    usdID.innerHTML = fiatSymbols[carouselFiatIndex] + ' ' + numberWithCommas((unit).toFixed(2));
+                }
+
             } else {
-                usdID.innerHTML = '$ ' + 0.00;
+                usdID.innerHTML = fiatSymbols[carouselFiatIndex] + ' ' + 0.00;
             }
         }
 
-        function getBitcoinPrice() {
+        function getBitcoinPrice(fiat) {
             var json_obj = JSON.parse(Get("https://blockchain.info/de/ticker"));
-            return parseFloat(json_obj.USD.last);
+            switch (fiat) {
+                case "USD":
+                    return parseFloat(json_obj.USD.last);
+                case "EUR":
+                    return parseFloat(json_obj.EUR.last);
+                case "GBP":
+                    return parseFloat(json_obj.GBP.last);
+                case "JPY":
+                    return parseFloat(json_obj.JPY.last);
+                case "CAD":
+                    return parseFloat(json_obj.CAD.last);
+                case "AUD":
+                    return parseFloat(json_obj.AUD.last);
+            }
         }
 
         function Get(yourUrl) {
@@ -70,6 +208,10 @@
             Httpreq.open("GET", yourUrl, false);
             Httpreq.send(null);
             return Httpreq.responseText;
+        }
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
         }
     </script>
 </body>

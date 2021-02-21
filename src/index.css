@@ -2,5 +2,11 @@ html, body {
     font-family: 'Times New Roman', Times, serif; 
 }
 
+.carousel-item.active,
+.carousel-item-next,
+.carousel-item-prev{
+    display:block;
+}
+
 
 

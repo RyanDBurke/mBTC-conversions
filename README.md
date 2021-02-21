@@ -4,7 +4,11 @@
 <div align="center">A cute, small, mini desktop app that quickly converts mBTC to fiat money using real-time prices</div>
 <br />
 
-# Table of Contents
+# Download
 * [Windows x64](#win)
 * [MacOS](#mac)
-* [Demo](#demo)
+
+# Demo
+<figure>
+  <img src="./demo/demo.gif" alt="demo" name=>
+</figure>
